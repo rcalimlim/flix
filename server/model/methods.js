@@ -4,6 +4,10 @@ const { setup } = require('axios-cache-adapter');
 const api = setup({
   // axios options
   baseURL: 'https://unogs-unogs-v1.p.rapidapi.com',
+  headers: {
+    'x-rapidapi-host': process.env.API_HOST,
+    'x-rapidapi-key': process.env.API_KEY,
+  },
 
   // axios-cache-adapter options
   cache: {
@@ -13,17 +17,49 @@ const api = setup({
   },
 });
 
-const loadTitle = async (title) => {
-  const headers = {
-    'x-rapidapi-host': process.env.API_HOST,
-    'x-rapidapi-key': process.env.API_KEY,
-  };
+// returns array of possible title matches based on text search
+const loadTitlesFromFuzzySearch = async (title) => {
   const params = {
-    t: 'loadvideo',
-    q: title,
+    q: `${title}-!1900,2018-!0,5-!0,10-!0-!Movie-!Any-!Any-!gt100-!{downloadable}`,
+    t: 'ns',
+    cl: 'all',
+    st: 'adv',
+    ob: 'Rating',
+    p: '1',
+    sa: 'and',
   };
-  const result = await api.get('/aaapi.cgi', { headers, params });
-  return result.data;
+  const result = await api.get('/aaapi.cgi', { params });
+  return result.data.ITEMS;
 };
 
-module.exports = { loadTitle };
+// returns array of genre ids related to title id
+const loadGenreInfoFromTitleId = async (titleId) => {
+  const params = {
+    q: titleId,
+    t: 'loadvideo',
+  };
+  const result = await api.get('/aaapi.cgi', { params });
+  return result.data.RESULT.Genreid;
+};
+
+// returns array of related titles based on genre id
+const loadMoviesFromGenre = async (genre) => {
+  const params = {
+    q: `-!1900,2018-!0,5-!0,10-!${genre}-!Movie-!Any-!Any-!gt100-!{downloadable}`,
+    t: 'ns',
+    cl: 'all',
+    st: 'adv',
+    ob: 'Rating',
+    p: '1',
+    sa: 'and',
+  };
+  const result = await api.get('/aaapi.cgi', { params });
+  console.log(result.data.ITEMS);
+  return result.data.ITEMS;
+};
+
+module.exports = {
+  loadTitlesFromFuzzySearch,
+  loadGenreInfoFromTitleId,
+  loadMoviesFromGenre,
+};

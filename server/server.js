@@ -16,8 +16,10 @@ app.use(express.static('client/dist'));
 // search for a title, return similar movies
 app.get('/api/search', async (req, res) => {
   const { title } = req.query;
-  const result = await methods.loadTitle(title);
-  res.send(result);
+  const titleInfo = await methods.loadTitle(title);
+  const genre = titleInfo.Genreid[0];
+  const similar = await methods.loadFromGenre(genre);
+  res.send(similar);
 });
 
 app.listen(port, () => console.log(`Server is running on ${port}`));
