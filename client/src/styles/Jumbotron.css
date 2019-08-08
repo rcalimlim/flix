@@ -11,3 +11,7 @@
 #subtitle {
   font-size: 22px;
 }
+
+#loader-placeholder {
+  height: 4px;
+}

@@ -29,6 +29,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
       searchString: '',
       selectedTitle: { blank: true },
       suggestedTitles: [],
@@ -44,6 +45,7 @@ class App extends Component {
   handlePress(e) {
     const { currentString } = this.state;
     if (e.key === 'Enter') {
+      this.setState({ loading: true });
       axios.get('http://localhost:3000/api/search/matching', { params: { title: currentString } })
         .then(response => response.data)
         .then((selected) => {
@@ -58,10 +60,11 @@ class App extends Component {
 
           if (match > 0.4) {
             const index = comparisons.indexOf(match);
+            selected[index].title = desanitize(selected[index].title);
             selected[index].synopsis = desanitize(selected[index].synopsis);
             this.setState({ selectedTitle: selected[index] });
           } else {
-            this.setState({ selectedTitle: {} });
+            this.setState({ loading: false, selectedTitle: {} });
           }
         })
         .then(() => {
@@ -71,10 +74,12 @@ class App extends Component {
               .then(response => response.data)
               .then(suggestions => suggestions
                 .map((suggestion) => {
+                  suggestion.title = desanitize(suggestion.title);
                   suggestion.synopsis = desanitize(suggestion.synopsis);
                   return suggestion;
                 }))
               .then(desanitized => this.setState({ suggestedTitles: desanitized }))
+              .then(() => this.setState({ loading: false }))
               .catch(console.error);
           }
         })
@@ -85,6 +90,7 @@ class App extends Component {
   render() {
     const {
       currentString,
+      loading,
       searchString,
       selectedTitle,
       suggestedTitles,
@@ -92,7 +98,7 @@ class App extends Component {
 
     return (
       <>
-        <Welcome />
+        <Welcome loading={loading} />
         <Container>
           <Row>
             <Search
