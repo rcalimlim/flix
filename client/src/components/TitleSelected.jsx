@@ -19,24 +19,16 @@ const TitleSelected = ({ title }) => {
         </Col>
         <Col sm={11} md={8} lg={9} className="justify-content-center">
           <Row>
-            Synopsis:
-            {' '}
-            {title.synopsis}
+            {`Synopsis: ${title.synopsis}`}
           </Row>
           <Row>
-            Released:
-            {' '}
-            {title.released}
+            {`Released: ${title.released}`}
           </Row>
           <Row>
-            Rating:
-            {' '}
-            {title.rating}
+            {`Rating: ${title.rating}`}
           </Row>
           <Row>
-            Runtime:
-            {' '}
-            {title.runtime}
+            {`Runtime: ${title.runtime}`}
           </Row>
         </Col>
       </Row>
