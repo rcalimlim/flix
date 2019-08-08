@@ -1,0 +1,13 @@
+.jumbotron {
+  background-color: #e50914;
+  color: #141414;
+}
+
+#logo {
+  font-family: 'Shrikhand', sans-serif;
+  font-size: 70px;
+}
+
+#subtitle {
+  font-size: 22px;
+}
