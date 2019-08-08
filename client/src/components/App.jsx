@@ -13,6 +13,18 @@ const compareString = (comparate, compared) => {
   return match ? match[0].length / compared.length : 0;
 };
 
+const entityMap = {
+  '&amp;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&#39;': "'",
+  '&#x2F;': '/',
+};
+
+const desanitize = string => String(string)
+  .replace(/&amp;|&lt;|&gt;|&quot;|&#39;|&#x2F;/g, s => entityMap[s]);
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +58,7 @@ class App extends Component {
 
           if (match > 0.4) {
             const index = comparisons.indexOf(match);
+            selected[index].synopsis = desanitize(selected[index].synopsis);
             this.setState({ selectedTitle: selected[index] });
           } else {
             this.setState({ selectedTitle: {} });
@@ -56,7 +69,12 @@ class App extends Component {
           if (Object.keys(selectedTitle).length > 0) {
             axios.get('http://localhost:3000/api/search/suggestions', { params: { title: selectedTitle.netflixid } })
               .then(response => response.data)
-              .then(suggestions => this.setState({ suggestedTitles: suggestions }))
+              .then(suggestions => suggestions
+                .map((suggestion) => {
+                  suggestion.synopsis = desanitize(suggestion.synopsis);
+                  return suggestion;
+                }))
+              .then(desanitized => this.setState({ suggestedTitles: desanitized }))
               .catch(console.error);
           }
         })
