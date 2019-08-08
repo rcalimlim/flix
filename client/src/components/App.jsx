@@ -58,7 +58,7 @@ class App extends Component {
               .reduce((best, next) => (best > next ? best : next));
           }
 
-          if (match > 0.4) {
+          if (match > 0.2) {
             const index = comparisons.indexOf(match);
             selected[index].title = desanitize(selected[index].title);
             selected[index].synopsis = desanitize(selected[index].synopsis);
