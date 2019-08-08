@@ -64,7 +64,11 @@ class App extends Component {
             selected[index].synopsis = desanitize(selected[index].synopsis);
             this.setState({ selectedTitle: selected[index] });
           } else {
-            this.setState({ loading: false, selectedTitle: {} });
+            this.setState({
+              loading: false,
+              selectedTitle: {},
+              suggestedTitles: [],
+            });
           }
         })
         .then(() => {
