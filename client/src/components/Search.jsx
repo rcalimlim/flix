@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Search = ({
-  currentString, searchString, handleChange, handlePress,
+  currentString, handleChange, handlePress,
 }) => (
   <input
     className="form-control"
@@ -10,6 +10,7 @@ const Search = ({
     aria-label="Search"
     onChange={handleChange}
     onKeyPress={handlePress}
+    autoComplete="off"
   />
 );
 

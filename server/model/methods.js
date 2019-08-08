@@ -22,9 +22,9 @@ const loadTitlesFromFuzzySearch = async (title) => {
   const params = {
     q: `${title}-!1900,2018-!0,5-!0,10-!0-!Movie-!Any-!Any-!gt100-!{downloadable}`,
     t: 'ns',
-    cl: 'all',
+    cl: '78',
     st: 'adv',
-    ob: 'Rating',
+    ob: 'Relevance',
     p: '1',
     sa: 'and',
   };
@@ -47,14 +47,13 @@ const loadMoviesFromGenre = async (genre) => {
   const params = {
     q: `-!1900,2018-!0,5-!0,10-!${genre}-!Movie-!Any-!Any-!gt100-!{downloadable}`,
     t: 'ns',
-    cl: 'all',
+    cl: '78',
     st: 'adv',
     ob: 'Rating',
     p: '1',
     sa: 'and',
   };
   const result = await api.get('/aaapi.cgi', { params });
-  console.log(result.data.ITEMS);
   return result.data.ITEMS;
 };
 

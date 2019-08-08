@@ -17,16 +17,16 @@ app.use(express.static('client/dist'));
 app.get('/api/search/matching', async (req, res) => {
   const { title } = req.query;
   const matching = await methods.loadTitlesFromFuzzySearch(title);
-  res.send(matching);
+  res.send(matching.slice(0, 3));
 });
 
 // search for a title, return similar movies
 app.get('/api/search/suggestions', async (req, res) => {
   const { title } = req.query;
-  const titleInfo = await methods.loadTitle(title);
-  const genre = titleInfo.Genreid[0];
-  const similar = await methods.loadFromGenre(genre);
-  res.send(similar);
+  const titleInfo = await methods.loadGenreInfoFromTitleId(title);
+  const genre = titleInfo[0];
+  const similar = await methods.loadMoviesFromGenre(genre);
+  res.send(similar.slice(0, 10));
 });
 
 app.listen(port, () => console.log(`Server is running on ${port}`));
