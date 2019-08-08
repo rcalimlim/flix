@@ -1,9 +1,9 @@
 import React from 'react';
-import Title from './Title.jsx';
+import TitleSelected from './TitleSelected.jsx';
 import TitleNotFound from './TitleNotFound.jsx';
 
 const Selected = ({ selectedTitle }) => {
-  let render = <Title title={selectedTitle} />;
+  let render = <TitleSelected title={selectedTitle} />;
   if (selectedTitle.blank) {
     render = <></>;
   } else if (Object.keys(selectedTitle).length === 0) {
