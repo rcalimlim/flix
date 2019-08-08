@@ -13,8 +13,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('client/dist'));
 
+// search for a title by text, return array of matching titles
+app.get('/api/search/matching', async (req, res) => {
+  const { title } = req.query;
+  const matching = await methods.loadTitlesFromFuzzySearch(title);
+  res.send(matching);
+});
+
 // search for a title, return similar movies
-app.get('/api/search', async (req, res) => {
+app.get('/api/search/suggestions', async (req, res) => {
   const { title } = req.query;
   const titleInfo = await methods.loadTitle(title);
   const genre = titleInfo.Genreid[0];

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Welcome from './Welcome.jsx';
 import Search from './Search.jsx';
 import Results from './Results.jsx';
@@ -82,6 +81,7 @@ class App extends Component {
       selectedTitle,
       suggestedTitles,
     } = this.state;
+
     return (
       <>
         <Welcome />
