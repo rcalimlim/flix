@@ -46,7 +46,7 @@ class App extends Component {
     const { currentString } = this.state;
     if (e.key === 'Enter') {
       this.setState({ loading: true });
-      axios.get('http://localhost:8000/api/search/matching', { params: { title: currentString } })
+      axios.get('https://rosscalimlim.me:8000/api/search/matching', { params: { title: currentString } })
         .then(response => response.data)
         .then((selected) => {
           const comparisons = selected
@@ -74,7 +74,7 @@ class App extends Component {
         .then(() => {
           const { selectedTitle } = this.state;
           if (Object.keys(selectedTitle).length > 0) {
-            axios.get('http://localhost:8000/api/search/suggestions', { params: { title: selectedTitle.netflixid } })
+            axios.get('https://rosscalimlim.me:8000/api/search/suggestions', { params: { title: selectedTitle.netflixid } })
               .then(response => response.data)
               .then(suggestions => suggestions
                 .map((suggestion) => {
