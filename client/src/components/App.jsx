@@ -22,8 +22,10 @@ const entityMap = {
   '&#x2F;': '/',
 };
 
-const desanitize = string => String(string)
-  .replace(/&amp;|&lt;|&gt;|&quot;|&#39;|&#x2F;/g, s => entityMap[s]);
+const desanitize = string => String(string).replace(
+  /&amp;|&lt;|&gt;|&quot;|&#39;|&#x2F;/g,
+  s => entityMap[s],
+);
 
 class App extends Component {
   constructor(props) {
@@ -46,16 +48,18 @@ class App extends Component {
     const { currentString } = this.state;
     if (e.key === 'Enter') {
       this.setState({ loading: true });
-      axios.get('http://rosscalimlim.me:8000/api/search/matching', { params: { title: currentString } })
+      axios
+        .get(
+          'https://rosscalimlim.me/projects/quickflix/app/api/search/matching',
+          { params: { title: currentString } },
+        )
         .then(response => response.data)
         .then((selected) => {
-          const comparisons = selected
-            .map(title => compareString(currentString, title.title));
+          const comparisons = selected.map(title => compareString(currentString, title.title));
 
           let match;
           if (comparisons.length !== 0) {
-            match = comparisons
-              .reduce((best, next) => (best > next ? best : next));
+            match = comparisons.reduce((best, next) => (best > next ? best : next));
           }
 
           if (match > 0.2) {
@@ -74,14 +78,17 @@ class App extends Component {
         .then(() => {
           const { selectedTitle } = this.state;
           if (Object.keys(selectedTitle).length > 0) {
-            axios.get('http://rosscalimlim.me:8000/api/search/suggestions', { params: { title: selectedTitle.netflixid } })
+            axios
+              .get(
+                'https://rosscalimlim.me/projects/quickflix/app/api/search/suggestions',
+                { params: { title: selectedTitle.netflixid } },
+              )
               .then(response => response.data)
-              .then(suggestions => suggestions
-                .map((suggestion) => {
-                  suggestion.title = desanitize(suggestion.title);
-                  suggestion.synopsis = desanitize(suggestion.synopsis);
-                  return suggestion;
-                }))
+              .then(suggestions => suggestions.map((suggestion) => {
+                suggestion.title = desanitize(suggestion.title);
+                suggestion.synopsis = desanitize(suggestion.synopsis);
+                return suggestion;
+              }))
               .then(desanitized => this.setState({ suggestedTitles: desanitized }))
               .then(() => this.setState({ loading: false }))
               .catch(console.error);

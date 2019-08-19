@@ -11,7 +11,8 @@ app.use(compression());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('client/dist'));
+// app.use(express.static('client/dist'));
+app.use('/projects/quickflix/app', express.static('client/dist'));
 
 // search for a title by text, return array of matching titles
 app.get('/api/search/matching', async (req, res) => {
