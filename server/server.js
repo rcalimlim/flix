@@ -15,14 +15,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/projects/quickflix/app', express.static('client/dist'));
 
 // search for a title by text, return array of matching titles
-app.get('/api/search/matching', async (req, res) => {
+app.get('/projects/quickflix/app/api/search/matching', async (req, res) => {
   const { title } = req.query;
   const matching = await methods.loadTitlesFromFuzzySearch(title);
   res.send(matching.slice(0, 3));
 });
 
 // search for a title, return similar movies
-app.get('/api/search/suggestions', async (req, res) => {
+app.get('/projects/quickflix/app/api/search/suggestions', async (req, res) => {
   const { title } = req.query;
   const titleInfo = await methods.loadGenreInfoFromTitleId(title);
   const genre = titleInfo[0];
