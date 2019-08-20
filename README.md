@@ -32,13 +32,11 @@ Quick Flix was built in two days using ReactJS, NodeJS/Express, and the [uNoGS](
 
 
 ## Client Deliverables
-
 I worked to meet the MVP requirements:
 
 - As a user, I want to see movie recommendations based on a movie title I input.
 - As a user, I should receive feedback when my search is processing.
 - As a user, I should receive feedback when my input doesn't exist in Netflix's database.
-- As a user, I should get a list of movie suggestions orderec by relevance and rating.
 
 ### Minimum Viable Product (MVP)
 
