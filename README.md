@@ -32,24 +32,11 @@ Quick Flix was built in two days using ReactJS, NodeJS/Express, and the [uNoGS](
 
 
 ## Client Deliverables
+I worked to meet the MVP requirements:
 
-Our team worked to meet the expectations of our primary user by organizing deliverables into user stories listed below:
-
-- As a user, when I navigate to the app, I see a home page with the option to login page if they’re not already logged in
-- Upon logging in, I want to be presented with my net account balance (checking account balance - credit card debt) and a form to record expenses/income
-- Throughout the app, I want to see a horizontal navigation bar along the top with various options
-- On the accounts page, I want to be able to see all of my accounts with their individual balances
-- By default, I should see transactions for the current month only, there should be an easy selector to move between past months
-- I want to be able to select an account and only see transactions associated with a particular account
-- I should be able to add accounts
-- On the budget page, the most important information to me is seeing how much money is currently remaining for each category.
-- I should be able to see all of the expense categories that I have previously defined.
-- I should also be able to see my current caps for each category, and expenditure toward those caps.
-- On the trends page, I want to see filterable visualizations of my current and past spending.
-- I should be able to see what percentage of my spending each category is currently making up.
-- I should be able to see my spending habits on any given category visualized in a way I can easily understand.
-- I should be able to compare my profile spending between any two months I select.
-- When I navigate to the settings page, I should be able to see and change my contact information and preferences.
+- As a user, I want to see movie recommendations based on a movie title I input.
+- As a user, I should receive feedback when my search is processing.
+- As a user, I should receive feedback when my input doesn't exist in Netflix's database.
 
 ### Minimum Viable Product (MVP)
 
